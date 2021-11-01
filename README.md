@@ -254,9 +254,7 @@ samtools view -h XXX 'lcl|Scaffold_9':40000000-42499999 -b > XXX_SN:lcl_Scaffold
 samtools view -h XXX 'lcl|Scaffold_9':42500000-44999999 -b > XXX_SN:lcl_Scaffold_9_42500000split.bam
 samtools view -h XXX 'lcl|Scaffold_9':45000000-47499999 -b > XXX_SN:lcl_Scaffold_9_45000000split.bam
 samtools view -h XXX 'lcl|Scaffold_9':47500000-49999999 -b > XXX_SN:lcl_Scaffold_9_47500000split.bam
-samtools view -h XXX 'lcl|Scaffold_9':50000000-52499999 -b > XXX_SN:lcl_Timeline
-
-    Today – If you are using passwords to authenticate Git operations with GitHub.com today, you will soon receive an eScaffold_9_50000000split.bam
+samtools view -h XXX 'lcl|Scaffold_9':50000000-52499999 -b > XXX_SN:lcl_Scaffold_9_50000000split.bam
 samtools view -h XXX 'lcl|Scaffold_9':52500000-54999999 -b > XXX_SN:lcl_Scaffold_9_52500000split.bam
 samtools view -h XXX 'lcl|Scaffold_9':55000000-57499999 -b > XXX_SN:lcl_Scaffold_9_55000000split.bam
 samtools view -h XXX 'lcl|Scaffold_10' -b > XXXSN:lcl_Scaffold_10_split.bam
@@ -270,7 +268,7 @@ samtools view -h XXX 'lcl|Scaffold_17' -b > XXXSN:lcl_Scaffold_17_split.bam
 samtools view -h XXX 'lcl|Scaffold_18' -b > XXXSN:lcl_Scaffold_18_split.bam
 
 
-###RUN FREEBAYES###
+RUN FREEBAYES
 
 freebayes --use-best-n-alleles 4 --pooled-discrete -m 20 -p 25 -C 2 -f YYY *XXX.bam > XXX.fb.out
 
@@ -279,32 +277,6 @@ cat *fb.out > ALL.fb.out
 FreeBayesvcf_Ploidy_filter_harsh.py ALL.fb.out > ALL.filtered.fb.out
 
 
------------------------------------
-FreeBayesvcf_Ploidy_filter_harsh.py
------------------------------------
-
-import sys
-import os
-import time
-import subprocess
-import fileinput
-dir = os.getcwd()
-
-File1 = sys.argv[1]
-for k in fileinput.input(File1):
-	if '#' in k:
-		print(k[0:-1])
-	if '#' not in k:
-		j=k.split('\t')
-		DP=j[7].replace(';',' ').split(' ')
-		DP1=DP[7].split('=')[1]
-		DP2=DP[15].split('=')[1]
-		DP22=DP2.split(',')[0]
-		#print(DP2)
-		#print(DP1)
-		#print(k)
-		if float(j[5]) >= float(30) and float(DP1) > float(25) and float(DP1) < float(300) and float(DP22) >= float(60):
-			print(k[0:-1])
 
 -----------------------------------
 FB_Allele_freq.py
